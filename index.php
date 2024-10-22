@@ -70,9 +70,10 @@ $biduran_waktu = $latest_images_with_timestamps['biduran'];
                 <div class="row">
                     <div class="col-sm-4 my-2">
                         <!-- Tambahkan Header -->
-                        <div class="card mb-2" style="background-color: #FFE0B5;">
-                            <img src="assets/img/edor.png" alt="Contoh Gambar" class="card-img-top" style="width: 302px; height: 160px;">
-                        </div>
+                      <div class="card mb-2" style="background-color: #FFE0B5;">
+                        <img src="assets/img/edor.png" alt="Contoh Gambar" class="card-img-top" style="max-width: 100%; max-height: 160px; object-fit: cover;">
+                    </div>
+
 
 
                         <hr>
@@ -118,6 +119,21 @@ $biduran_waktu = $latest_images_with_timestamps['biduran'];
                                             <div>
                                                 <h5 class="card-title">Biduran</h5>
                                                 <p class="card-text"><small class="text-muted"><?= $biduran_waktu; ?></small></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                         <div class="card mb-3" style="max-width: 540px; background-color: #FFE0B5;">
+                            <div class="row g-0">
+                                <div class="col-md-8">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-start">
+                                            <img src="hasildeteksi/<?= $fluSingapura; ?>" alt="Card image" class="img-fluid rounded-circle" style="width: 70px; height: 70px; margin-right: 16px;">
+                                            <div>
+                                                <h5 class="card-title">Flu Singapura</h5>
+                                                <p class="card-text"><small class="text-muted"><?= $fluSingapura_waktu; ?></small></p>
                                             </div>
                                         </div>
                                     </div>

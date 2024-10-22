@@ -57,6 +57,25 @@ $panu_waktu = $latest_images_with_timestamps['panu'];
 $kadasKurap_waktu = $latest_images_with_timestamps['kadasKurap'];
 $fluSingapura_waktu = $latest_images_with_timestamps['fluSingapura'];
 $biduran_waktu = $latest_images_with_timestamps['biduran'];
+if (isset($_POST['update'])) {
+    // Mendapatkan data dari input
+    $nama = $_POST['nama'];
+    $email = $_POST['email'];
+    $alamat = $_POST['alamat'];
+    $id = $_POST['ids'];
+
+    // Logika untuk memperbarui profil di database
+    $update_query = "UPDATE login SET nama='$nama', email='$email', alamat='$alamat' WHERE id='$id'";
+    if ($kon->kueri($update_query)) {
+        // Redirect ke halaman yang sama dengan hash ke profil tab
+        header("Location: " . $_SERVER['PHP_SELF'] . "#profile");
+        exit; // pastikan untuk menghentikan script lebih lanjut
+    } else {
+        echo "Terjadi kesalahan saat memperbarui profil.";
+    }
+}
+
+
 
 ?>
 
@@ -164,18 +183,24 @@ $biduran_waktu = $latest_images_with_timestamps['biduran'];
                                                         <span><?= $fluSingapura_waktu; ?></span>
                                                     </div>
                                                 </div>
-                                                <button type="button" class="btn btn-primary">View</button>
+                                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalFlu">
+                                                    View
+                                                </button>
+
                                             </li>
 
                                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                                 <div class="d-flex align-items-center">
-                                                    <img src="hasildeteksi/<?= $bisul; ?>" alt="Card image" class="img-fluid rounded-circle" style="width: 55px; height: 55px; margin-right: 16px;">
+                                                    <img src="hasildeteksi/<?= $kadasKurap; ?>" alt="Card image" class="img-fluid rounded-circle" style="width: 55px; height: 55px; margin-right: 16px;">
                                                     <div class="ms-1">
-                                                        <strong>Bisulan</strong><br>
-                                                        <span><?= $bisul_waktu; ?></span>
+                                                        <strong>Kudas Kurap</strong><br>
+                                                        <span><?= $kadasKurap_waktu; ?></span>
+
                                                     </div>
                                                 </div>
-                                                <button type="button" class="btn btn-primary">View</button>
+                                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalKadas">
+                                                    View
+                                                </button>
                                             </li>
 
                                             <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -186,7 +211,9 @@ $biduran_waktu = $latest_images_with_timestamps['biduran'];
                                                         <span><?= $biduran_waktu; ?></span>
                                                     </div>
                                                 </div>
-                                                <button type="button" class="btn btn-primary">View</button>
+                                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalBiduran">
+                                                    View
+                                                </button>
                                             </li>
                                         </ul>
                                     </div>
@@ -198,21 +225,23 @@ $biduran_waktu = $latest_images_with_timestamps['biduran'];
                                     $akun = $kon->hasil_data($akuns);
                                     ?>
                                     <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                                        <form class="profile-form">
+                                        <form class="profile-form" method="post" action="">
+                                            <input type="hidden" id="ids" name="ids" class="form-control" value="<?= $ids ?>">
                                             <div class="form-group">
                                                 <label for="nama">Nama</label>
-                                                <input type="text" id="nama" class="form-control" value="<?= $akun['nama']; ?>">
+                                                <input type="text" id="nama" name="nama" class="form-control" value="<?= $akun['nama']; ?>">
                                             </div>
                                             <div class="form-group">
                                                 <label for="email">Email</label>
-                                                <input type="email" id="email" class="form-control" value="<?= $akun['email']; ?>">
+                                                <input type="email" id="email" name="email" class="form-control" value="<?= $akun['email']; ?>">
                                             </div>
                                             <div class="form-group">
                                                 <label for="alamat">Alamat</label>
-                                                <input type="text" id="alamat" class="form-control" value="<?= $akun['alamat']; ?>">
+                                                <input type="text" id="alamat" name="alamat" class="form-control" value="<?= $akun['alamat']; ?>">
                                             </div>
-                                            <button type="submit" class="btn btn-primary">Update Profile</button>
+                                            <button type="submit" name="update" class="btn btn-primary">Update Profile</button>
                                         </form>
+
                                     </div>
                                 </div>
                             </div>
@@ -223,6 +252,93 @@ $biduran_waktu = $latest_images_with_timestamps['biduran'];
         </section>
     </main>
 
+    <!-- modal -->
+    <!-- Button trigger modal -->
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="modalKadas" tabindex="-1" role="dialog" aria-labelledby="modalKadasLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalKadasLabel">Kadas/Kurap</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Kadas/Kurap (Tinea Corporis) adalah infeksi jamur pada kulit yang ditandai dengan bercak merah berbentuk cincin, yang bisa menyebabkan rasa gatal.</p>
+                    <p><b>Penyebabnya:</b> Disebabkan oleh infeksi jamur dermatofita yang hidup di jaringan kulit mati. Jamur ini dapat menyebar melalui kontak langsung dengan orang yang terinfeksi, hewan, atau benda-benda yang terkontaminasi.</p>
+                    <b>Cara Penangannya:</b>
+                    <ol type="1">
+                        <li>Obat Antijamur: Gunakan salep atau krim antijamur seperti clotrimazole atau miconazole yang dijual bebas.</li>
+                        <li>Menjaga Kebersihan: Jaga kebersihan kulit, terutama area yang terinfeksi. Hindari berbagi pakaian atau handuk.</li>
+                        <li>Konsultasi Dokter: Jika infeksi meluas atau tidak membaik, sebaiknya periksa ke dokter untuk mendapatkan resep obat antijamur oral.</li>
+                    </ol>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalFlu" tabindex="-1" role="dialog" aria-labelledby="modalFluLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalFluLabel">Flu Singapura</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Flu Singapura adalah penyakit virus yang ditandai dengan ruam dan sering kali disertai dengan demam.
+                    </p>
+                    <p><b>Penyebabnya:</b> Disebabkan oleh enterovirus, yang biasanya menyebar melalui kontak langsung.</p>
+                    <b>Cara Penangannya:</b>
+                    <ol type="1">
+                        <li>Istirahat yang cukup dan minum banyak cairan.</li>
+                        <li>Obat pereda nyeri dapat digunakan untuk mengurangi ketidaknyamanan.</li>
+                        <li>Konsultasi dokter jika gejala semakin parah.</li>
+                    </ol>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="modalBiduran" tabindex="-1" role="dialog" aria-labelledby="modalBiduranLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalBiduranLabel">Biduran</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Biduran adalah reaksi alergi yang ditandai dengan bercak merah dan gatal di kulit.</p>
+                    <p><b>Penyebabnya:</b> Bisa disebabkan oleh alergi makanan, obat, atau faktor lingkungan.</p>
+                    <b>Cara Penangannya:</b>
+                    <ol type="1">
+                        <li>Hindari pemicu alergi jika diketahui.</li>
+                        <li>Obat antihistamin dapat membantu meredakan gejala.</li>
+                        <li>Konsultasi dokter jika gejala berlanjut.</li>
+                    </ol>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $('#myModal').on('shown.bs.modal', function() {
+            $('#myInput').trigger('focus')
+        })
+    </script>
     <!--=============== MAIN JS ===============-->
     <script src="assets/js/main.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
